@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        li:hover {
+            background-color: #d0d7de;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>User List</h1>
+
+    <ul>
+        <li th:each="user : ${users}" th:text="${user.name}">User Name</li>
+    </ul>
+
+    <form th:action="@{/users}" th:object="${userForm}" method="post">
+        <input type="text" th:field="*{id}" placeholder="ID"/>
+        <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color:red"></span>
+
+        <input type="text" th:field="*{name}" placeholder="Name"/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></span>
+
+        <button type="submit">Add User</button>
+    </form>
+</div>
+</body>
+</html>
