@@ -2,9 +2,11 @@ package com.lunarcd.userapp.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class User {
 
+    @NotNull(message = "ID cannot be null")
     @Min(value = 1, message = "ID must be greater than 0")
     private Long id;
 

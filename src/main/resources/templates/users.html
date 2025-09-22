@@ -46,9 +46,10 @@
 
         form {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            flex-wrap: wrap;
         }
+
 
         input[type="text"] {
             flex: 1;
@@ -84,7 +85,6 @@
     <form th:action="@{/users}" th:object="${userForm}" method="post">
         <input type="text" th:field="*{id}" placeholder="ID"/>
         <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color:red"></span>
-
         <input type="text" th:field="*{name}" placeholder="Name"/>
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></span>
 
