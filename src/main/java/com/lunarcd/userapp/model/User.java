@@ -1,24 +1,28 @@
 package com.lunarcd.userapp.model;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class User {
 
-    @NotNull(message = "ID cannot be null")
-    @Min(value = 1, message = "ID must be greater than 0")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @NotBlank(message = "Name cannot be empty")
     private String name;
+    private int age;
+    private String email;
+    private boolean status;
 
-    public User(String name, Long id) {
+    public User() {}
+
+    public User(String name, String email, int age) {
         this.name = name;
-        this.id = id;
-    }
-
-    public User() {
+        this.email = email;
+        this.age = age;
     }
 
     public Long getId() {
@@ -35,5 +39,29 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

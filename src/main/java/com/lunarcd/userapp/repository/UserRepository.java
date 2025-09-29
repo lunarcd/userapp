@@ -1,22 +1,21 @@
 package com.lunarcd.userapp.repository;
 
 import com.lunarcd.userapp.model.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Repository
-public class UserRepository {
-    private final Map<Long, User> database = new HashMap<>();
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    public List<User> findAll() {
-        return new ArrayList<>(database.values());
-    }
+    List<User> findByNameContaining(String keyword);
 
-    public void save(User user) {
-        database.put(user.getId(), user);
-    }
+    Page<User> findByAgeGreaterThan(int age, Pageable pageable);
+
+    @Query("SELECT u FROM User u WHERE u.name LIKE %:keyword% OR u.email LIKE %:keyword%")
+    List<User> searchByNameOrEmail(@Param("keyword") String keyword);
 }
+
